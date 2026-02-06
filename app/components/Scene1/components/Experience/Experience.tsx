@@ -16,6 +16,21 @@ export default function Experience() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const materialRef = useRef<any>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const noiseTextureRef = useRef<THREE.Texture | null>(null);
+
+  // Load noise texture
+  useEffect(() => {
+    const loader = new THREE.TextureLoader();
+    loader.load("/noiseTexture.png", (texture) => {
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      noiseTextureRef.current = texture;
+
+      if (materialRef.current) {
+        materialRef.current.uniforms.uNoiseTexture.value = texture;
+      }
+    });
+  }, []);
 
   // Set up camera lookAt
   useEffect(() => {
@@ -37,20 +52,18 @@ export default function Experience() {
         <planeGeometry args={[3, 3, 32, 32]} />
         <CustomShaderMaterial
           //CSM
-          baseMaterial={THREE.MeshPhysicalMaterial}
+          baseMaterial={THREE.MeshStandardMaterial}
           ref={materialRef}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
           uniforms={{
             uTime: { value: 0 },
+            uNoiseTexture: { value: null },
           }}
           //MeshPhysicsMaterial
           metalness={1.0}
           roughness={0.1}
           color={"#ffffff"}
-          transmission={0}
-          ior={1.5}
-          thickness={1.5}
           transparent={true}
           wireframe={false}
         />
