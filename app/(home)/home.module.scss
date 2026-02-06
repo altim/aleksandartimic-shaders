@@ -1,0 +1,53 @@
+:root {
+  --page-width: 1200px;
+}
+
+.svgContainer {
+  position: fixed;
+  left: -200vw;
+  top: -200vh;
+}
+
+.svg {
+  width: 100vw;
+  height: 100vh;
+}
+
+.longWrapper {
+  width: 100%;
+  height: 300dvh;
+  position: relative;
+}
+
+.stickyWrapper {
+  width: 100%;
+  height: 100dvh;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page1 {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+}
+
+.page2 {
+  background: #fff;
+  mask: url(#reveal-mask);
+  -webkit-mask: url(#reveal-mask);
+  z-index: 10;
+}

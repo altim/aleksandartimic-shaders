@@ -1,0 +1,84 @@
+"use client";
+
+import classNames from "classnames";
+import { useEffect, useRef } from "react";
+import Scene1 from "../components/Scene1/Scene1";
+import Scene2 from "../components/Scene2/Scene2";
+import { useLenis } from "../contexts/LenisContext";
+import styles from "./home.module.scss";
+
+export default function Home() {
+  const lenis = useLenis();
+  const circleRef = useRef<SVGCircleElement>(null);
+
+  useEffect(() => {
+    if (!lenis || !circleRef.current) return;
+
+    const handleScroll = ({ scroll }: { scroll: number }) => {
+      if (!circleRef.current) return;
+
+      const viewportHeight = window.innerHeight;
+
+      // Progress from 0 to 1 over the first 100vh of scroll
+      const progress = Math.min(scroll / viewportHeight, 1);
+
+      // Calculate radius as percentage (0 to 150 for full coverage)
+      const radius = progress * 150;
+
+      circleRef.current.setAttribute("r", `${radius}%`);
+    };
+
+    lenis.on("scroll", handleScroll);
+
+    return () => {
+      lenis.off("scroll", handleScroll);
+    };
+  }, [lenis]);
+
+  return (
+    <>
+      <div className={styles.svgContainer}>
+        <svg className={styles.svg}>
+          <filter id="noise" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.02"
+              numOctaves="2"
+              seed="2"
+              result="noise"
+            />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="200" />
+          </filter>
+
+          <mask
+            id="reveal-mask"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          >
+            <circle
+              ref={circleRef}
+              cx="50%"
+              cy="50%"
+              r="0"
+              fill="white"
+              filter="url(#noise)"
+            />
+          </mask>
+        </svg>
+      </div>
+      <div className={styles.longWrapper}>
+        <div className={styles.stickyWrapper}>
+          <div className={classNames(styles.page, styles.page1)}>
+            <Scene1 />
+          </div>
+          <div className={classNames(styles.page, styles.page2)}>
+            <Scene2 />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
