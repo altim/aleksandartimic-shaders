@@ -1,0 +1,16 @@
+.root {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin: auto;
+  padding: 60px 0;
+
+  span {
+    font-family: var(--font-montserrat);
+    font-size: 32px;
+    line-height: 1.5;
+    font-weight: 600;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+    text-align: left;
+  }
+}

@@ -60,7 +60,7 @@ export default function Experience() {
             uTime: { value: 0 },
             uNoiseTexture: { value: null },
           }}
-          //MeshPhysicsMaterial
+          //MeshStandardMaterial
           metalness={1.0}
           roughness={0.1}
           color={"#ffffff"}

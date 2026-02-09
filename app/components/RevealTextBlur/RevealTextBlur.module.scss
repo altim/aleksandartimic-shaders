@@ -1,0 +1,26 @@
+.root {
+  span {
+    display: inline-block;
+    animation: blurAppear 1s ease forwards;
+
+    animation-delay: calc(
+      var(--initialDelay) * 1s + var(--staggeringDelay) * var(--i) * 1s
+    );
+    opacity: 0;
+    transform: scaleY(1.2);
+  }
+}
+
+@keyframes blurAppear {
+  0% {
+    filter: blur(20px);
+    opacity: 0;
+    transform: scaleY(1.2);
+  }
+
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
