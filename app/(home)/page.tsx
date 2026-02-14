@@ -22,10 +22,16 @@ export default function Home() {
   const longWrapperRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
+  const isMobileRef = useRef(false);
 
   useEffect(() => {
     history.scrollRestoration = "manual";
     window.scrollTo({ top: 0, behavior: "instant" });
+    isMobileRef.current =
+      "ontouchstart" in window || window.matchMedia("(max-width: 768px)").matches;
+    if (isMobileRef.current && circleRef.current) {
+      circleRef.current.removeAttribute("filter");
+    }
   }, []);
 
   useEffect(() => {
@@ -60,9 +66,11 @@ export default function Home() {
       console.log("progress:", progress);
       console.log("currentPage:", page);
 
+      const maxRadius = isMobileRef.current ? 150 : 100;
+
       // Transition from page 0 to page 1
       if (page === 0) {
-        const radius = progress * 90;
+        const radius = progress * maxRadius;
         circleRef.current.setAttribute("r", `${radius}%`);
         if (page2ContentRef.current) {
           page2ContentRef.current.style.transform = `translateY(0px)`;
@@ -71,7 +79,7 @@ export default function Home() {
 
       // Scroll the second page content
       if (page >= 1) {
-        circleRef.current.setAttribute("r", `90%`);
+        circleRef.current.setAttribute("r", `${maxRadius}%`);
         if (page2ContentRef.current) {
           const innerScroll = scroll - viewportHeight;
           page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
