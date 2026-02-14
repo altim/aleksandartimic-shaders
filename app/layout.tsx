@@ -63,12 +63,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  images: [
-    {
-      url: "/preview.jpg",
-      alt: "Aleksandar Timic — portfolio preview",
-    },
-  ],
   robots: {
     index: true,
     follow: true,
