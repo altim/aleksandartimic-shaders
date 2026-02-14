@@ -11,17 +11,33 @@ import AboutMe from "../components/AboutMe/AboutMe";
 import Skills from "../components/Skills/Skills";
 import Recommendations from "../components/Recommendations/Recommendations";
 import Education from "../components/Education/Education";
+import Contact from "../components/Contact/Contact";
 
 export default function Home() {
   const lenis = useLenis();
   const circleRef = useRef<SVGCircleElement>(null);
   const page2ContentRef = useRef<HTMLDivElement>(null);
+  const longWrapperRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
 
   useEffect(() => {
     history.scrollRestoration = "manual";
     window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  useEffect(() => {
+    if (!page2ContentRef.current || !longWrapperRef.current) return;
+
+    const updateHeight = () => {
+      const contentHeight = page2ContentRef.current!.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      longWrapperRef.current!.style.height = `${viewportHeight + contentHeight}px`;
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
   useEffect(() => {
@@ -96,7 +112,7 @@ export default function Home() {
           </mask>
         </svg>
       </div>
-      <div className={styles.longWrapper}>
+      <div ref={longWrapperRef} className={styles.longWrapper}>
         <div className={styles.stickyWrapper}>
           {/* page 1 */}
           <div className={classNames(styles.page, styles.page1)}>
@@ -115,6 +131,11 @@ export default function Home() {
                     delay={3}
                     staggeringDelay={0.1}
                   />
+                  <RevealTextBlur
+                    text="creative technologist"
+                    delay={4}
+                    staggeringDelay={0.1}
+                  />
                 </div>
               </div>
             </div>
@@ -127,8 +148,9 @@ export default function Home() {
               <div className={styles.page2ContentInner}>
                 <AboutMe />
                 <Skills />
-                <Recommendations />
                 <Education />
+                <Recommendations />
+                <Contact />
               </div>
             </div>
             <Scene2 />

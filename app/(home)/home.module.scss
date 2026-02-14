@@ -15,7 +15,6 @@
 
 .longWrapper {
   width: 100%;
-  height: 300dvh;
   position: relative;
 }
 
@@ -82,16 +81,16 @@
 
 .page1Text2 {
   span {
-    font-size: 48px;
+    font-size: 32px;
   }
 }
 
 .page2Content {
   width: 100vw;
-  height: 200vh;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .page2ContentInner {

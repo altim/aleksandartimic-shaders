@@ -3,11 +3,11 @@ import styles from "./AboutMe.module.scss";
 export default function AboutMe() {
   return (
     <div className={styles.root}>
-      <p>
-        I&apos;m Senior Frontend Developer armed with a Master&apos;s degree in
-        Mathematics and Informatics and 15+ years experience in IT industry. In
-        my career I have developed applications, websites and top-notch products
-        with global reach.
+      <p className={styles.headline}>Inspired by what the web can become.</p>
+      <p className={styles.supporting}>
+        My foundation is React, Next.js, and TypeScript. My passion is crafting
+        interactive experiences with ThreeJS, WebGL, and creative code that pushes
+        beyond the conventional.
       </p>
     </div>
   );
