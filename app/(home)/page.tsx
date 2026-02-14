@@ -84,6 +84,7 @@ export default function Home() {
       // Start scrolling page 2
       const scrollStart =
         viewportHeight * (window.innerWidth > 768 ? 0.8 : 0.5);
+      console.log("scrolling start:", scrollStart);
       if (scroll > scrollStart && page2ContentRef.current) {
         const innerScroll = scroll - scrollStart;
         page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
