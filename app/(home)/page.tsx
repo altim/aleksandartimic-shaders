@@ -12,6 +12,8 @@ import Skills from "../components/Skills/Skills";
 import Recommendations from "../components/Recommendations/Recommendations";
 import Education from "../components/Education/Education";
 import Contact from "../components/Contact/Contact";
+import FadeInSection from "../components/FadeInSection/FadeInSection";
+import ScrollIndicator from "../components/ScrollIndicator/ScrollIndicator";
 
 export default function Home() {
   const lenis = useLenis();
@@ -146,6 +148,7 @@ export default function Home() {
               </div>
             </div>
             <Scene1 />
+            <ScrollIndicator />
           </div>
 
           {/* page 2 */}
@@ -153,10 +156,18 @@ export default function Home() {
             <div ref={page2ContentRef} className={styles.page2Content}>
               <div className={styles.page2ContentInner}>
                 <AboutMe />
-                <Skills />
-                <Education />
-                <Recommendations />
-                <Contact />
+                <FadeInSection>
+                  <Skills />
+                </FadeInSection>
+                <FadeInSection>
+                  <Education />
+                </FadeInSection>
+                <FadeInSection>
+                  <Recommendations />
+                </FadeInSection>
+                <FadeInSection>
+                  <Contact />
+                </FadeInSection>
               </div>
             </div>
             <Scene2 />
