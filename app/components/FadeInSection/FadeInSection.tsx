@@ -15,6 +15,8 @@ export default function FadeInSection({
     const el = ref.current;
     if (!el) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -22,7 +24,7 @@ export default function FadeInSection({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.2 },
+      { threshold: isMobile ? 0.05 : 0.2 },
     );
 
     observer.observe(el);

@@ -4,6 +4,13 @@
   transition:
     opacity 1.8s ease,
     transform 1.8s ease;
+
+  @media (max-width: 768px) {
+    transform: translateY(20px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
 }
 
 .visible {
