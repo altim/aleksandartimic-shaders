@@ -3,11 +3,12 @@ import styles from "./AboutMe.module.scss";
 export default function AboutMe() {
   return (
     <div className={styles.root}>
-      <p className={styles.headline}>Inspired by what the web can become.</p>
+      <p className={styles.headline}>Engineering immersive web experiences.</p>
       <p className={styles.supporting}>
-        My foundation is React, Next.js, and TypeScript. My passion is crafting
-        interactive experiences with ThreeJS, WebGL, and creative code that
-        pushes beyond the conventional.
+        Senior Frontend Developer with deep expertise in React, Next.js, and
+        TypeScript. I design and architect visually compelling, interactive web
+        experiences using Three.js, React Three Fiber, Drei, and advanced
+        animation systems.
       </p>
     </div>
   );
