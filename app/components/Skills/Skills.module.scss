@@ -1,0 +1,48 @@
+.root {
+  padding: 60px 0;
+}
+
+.heading {
+  font-family: var(--font-montserrat);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category {
+  font-family: var(--font-montserrat);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item {
+  font-family: var(--font-source-sans-3);
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}

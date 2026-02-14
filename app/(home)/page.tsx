@@ -8,12 +8,21 @@ import { useLenis } from "../contexts/LenisContext";
 import styles from "./home.module.scss";
 import RevealTextBlur from "../components/RevealTextBlur/RevealTextBlur";
 import AboutMe from "../components/AboutMe/AboutMe";
+import Skills from "../components/Skills/Skills";
+import Recommendations from "../components/Recommendations/Recommendations";
+import Education from "../components/Education/Education";
 
 export default function Home() {
   const lenis = useLenis();
   const circleRef = useRef<SVGCircleElement>(null);
+  const page2ContentRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
+
+  useEffect(() => {
+    history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   useEffect(() => {
     if (!lenis || !circleRef.current) return;
@@ -23,7 +32,6 @@ export default function Home() {
 
       const viewportHeight = window.innerHeight;
 
-      // Progress from 0 to 1 over the first 100vh of scroll
       const progress = Math.min(scroll / viewportHeight, 1);
       const page = Math.floor(scroll / viewportHeight);
       if (currentPageRef.current !== page) {
@@ -34,10 +42,17 @@ export default function Home() {
       console.log("progress:", progress);
       console.log("currentPage:", page);
 
-      // Calculate radius as percentage (0 to 150 for full coverage)
-      const radius = progress * 90;
+      // Transition from page 0 to page 1
+      if (page === 0) {
+        const radius = progress * 90;
+        circleRef.current.setAttribute("r", `${radius}%`);
+      }
 
-      circleRef.current.setAttribute("r", `${radius}%`);
+      // Scroll the second page content
+      if (page >= 1 && page2ContentRef.current) {
+        const innerScroll = scroll - viewportHeight;
+        page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
+      }
     };
 
     lenis.on("scroll", handleScroll);
@@ -83,6 +98,7 @@ export default function Home() {
       </div>
       <div className={styles.longWrapper}>
         <div className={styles.stickyWrapper}>
+          {/* page 1 */}
           <div className={classNames(styles.page, styles.page1)}>
             <div className={styles.page1Content}>
               <div>
@@ -104,10 +120,15 @@ export default function Home() {
             </div>
             <Scene1 />
           </div>
+
+          {/* page 2 */}
           <div className={classNames(styles.page, styles.page2)}>
-            <div className={styles.page2Content}>
+            <div ref={page2ContentRef} className={styles.page2Content}>
               <div className={styles.page2ContentInner}>
-                {currentPage === 1 && <AboutMe />}
+                <AboutMe />
+                <Skills />
+                <Recommendations />
+                <Education />
               </div>
             </div>
             <Scene2 />
