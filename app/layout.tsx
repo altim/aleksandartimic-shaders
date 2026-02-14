@@ -42,13 +42,33 @@ export const metadata: Metadata = {
     description:
       "Senior Frontend Developer crafting immersive, interactive web experiences with React, Next.js, Three.js, and modern animation systems.",
     siteName: "Aleksandar Timic",
+    images: [
+      {
+        url: "/preview.jpg",
+        alt: "Aleksandar Timic — portfolio preview",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Aleksandar Timic | Senior Frontend Developer",
     description:
       "Senior Frontend Developer crafting immersive, interactive web experiences with React, Next.js, Three.js, and modern animation systems.",
+    images: [
+      {
+        url: "/preview.jpg",
+        alt: "Aleksandar Timic — portfolio preview",
+      },
+    ],
   },
+  images: [
+    {
+      url: "/preview.jpg",
+      alt: "Aleksandar Timic — portfolio preview",
+    },
+  ],
   robots: {
     index: true,
     follow: true,
