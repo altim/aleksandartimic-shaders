@@ -23,14 +23,15 @@ export default function Home() {
   const page2Ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
-  const isMobileRef = useRef(false);
+  const useClipPathRef = useRef(false);
 
   useEffect(() => {
     history.scrollRestoration = "manual";
     window.scrollTo({ top: 0, behavior: "instant" });
-    isMobileRef.current =
-      "ontouchstart" in window || window.matchMedia("(max-width: 768px)").matches;
-    if (isMobileRef.current && page2Ref.current) {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    useClipPathRef.current =
+      isSafari || "ontouchstart" in window || window.matchMedia("(max-width: 768px)").matches;
+    if (useClipPathRef.current && page2Ref.current) {
       page2Ref.current.style.mask = "none";
       page2Ref.current.style.webkitMask = "none";
       page2Ref.current.style.clipPath = "circle(0% at 50% 50%)";
@@ -64,13 +65,16 @@ export default function Home() {
         setCurrentPage(page);
       }
 
-      const isMobile = isMobileRef.current;
-      const maxRadius = isMobile ? 150 : 100;
+      const v = Math.round(Math.min(progress / 0.7, 1) * 255);
+      document.body.style.backgroundColor = `rgb(${v},${v},${v})`;
+
+      const useClipPath = useClipPathRef.current;
+      const maxRadius = useClipPath ? 150 : 100;
 
       // Transition from page 0 to page 1
       if (page === 0) {
         const radius = progress * maxRadius;
-        if (isMobile && page2Ref.current) {
+        if (useClipPath && page2Ref.current) {
           page2Ref.current.style.clipPath = `circle(${radius}% at 50% 50%)`;
         } else if (circleRef.current) {
           circleRef.current.setAttribute("r", `${radius}%`);
@@ -82,7 +86,7 @@ export default function Home() {
 
       // Scroll the second page content
       if (page >= 1) {
-        if (isMobile && page2Ref.current) {
+        if (useClipPath && page2Ref.current) {
           page2Ref.current.style.clipPath = `circle(${maxRadius}% at 50% 50%)`;
         } else if (circleRef.current) {
           circleRef.current.setAttribute("r", `${maxRadius}%`);
