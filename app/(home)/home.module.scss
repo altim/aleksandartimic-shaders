@@ -75,13 +75,13 @@
 
 .page1Text1 {
   span {
-    font-size: 76px;
+    font-size: clamp(36px, 8vw, 76px);
   }
 }
 
 .page1Text2 {
   span {
-    font-size: 32px;
+    font-size: clamp(18px, 3.5vw, 32px);
   }
 }
 
@@ -96,6 +96,6 @@
 .page2ContentInner {
   width: 100%;
   max-width: 1200px;
-  padding: 20px;
+  padding: 24px;
   margin: auto;
 }
