@@ -15,6 +15,10 @@ import Contact from "../components/Contact/Contact";
 import FadeInSection from "../components/FadeInSection/FadeInSection";
 import ScrollIndicator from "../components/ScrollIndicator/ScrollIndicator";
 
+const getScrollStart = () => {
+  return window.innerHeight * (window.innerWidth > 768 ? 0.8 : 0.5);
+};
+
 export default function Home() {
   const lenis = useLenis();
   const circleRef = useRef<SVGCircleElement>(null);
@@ -45,7 +49,7 @@ export default function Home() {
 
     const updateHeight = () => {
       const contentHeight = page2ContentRef.current!.scrollHeight;
-      const viewportHeight = window.innerHeight;
+      const viewportHeight = getScrollStart();
       longWrapperRef.current!.style.height = `${viewportHeight + contentHeight}px`;
     };
 
@@ -82,9 +86,7 @@ export default function Home() {
       }
 
       // Start scrolling page 2
-      const scrollStart =
-        viewportHeight * (window.innerWidth > 768 ? 0.8 : 0.5);
-      console.log("scrolling start:", scrollStart);
+      const scrollStart = getScrollStart();
       if (scroll > scrollStart && page2ContentRef.current) {
         const innerScroll = scroll - scrollStart;
         page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
