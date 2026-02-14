@@ -2,36 +2,87 @@ import styles from "./Skills.module.scss";
 
 const skills = [
   {
-    category: "JavaScript",
-    items: ["ReactJS", "TypeScript", "NextJS", "Remix", "jQuery", "Vanilla JS"],
+    category: "React Ecosystem",
+    items: [
+      "React",
+      "Next.js",
+      "Astro.js",
+      "Remix",
+      "Tanstack Query",
+      "React Router",
+      "React Hook Form",
+      "Formik",
+      "Tanstack Table",
+      "Zod",
+      "Yup",
+    ],
+  },
+  {
+    category: "Creative & Interactive",
+    items: [
+      "ThreeJS",
+      "React Three Fiber",
+      "Drei",
+      "React Spring",
+      "Motion",
+      "WebGL",
+      "GLSL / Custom Shaders",
+      "GSAP",
+    ],
   },
   {
     category: "State Management",
-    items: ["Redux", "React Query", "Zustand", "Jotai", "React Context"],
-  },
-  {
-    category: "CSS",
-    items: ["SASS/LESS", "PandaCSS", "Styled Components", "CSS Modules"],
-  },
-  {
-    category: "Web3",
-    items: ["Ethers", "MeshJS", "Wagmi", "WalletConnect"],
-  },
-  {
-    category: "Data Visualization",
-    items: ["ThreeJS", "ChartJS", "ECharts"],
+    items: ["Mobx", "Redux", "Zustand", "Jotai", "React Context"],
   },
   {
     category: "Testing",
     items: ["Jest", "React Testing Library", "Cypress", "Percy.io"],
   },
   {
-    category: "CI/CD & Tools",
-    items: ["Docker", "GitHub Workflows", "Vercel", "Jenkins", "Storybook"],
+    category: "CSS",
+    items: [
+      "SASS/LESS",
+      "PandaCSS",
+      "Styled Components",
+      "Emotion",
+      "CSS Modules",
+    ],
   },
   {
-    category: "Backend",
+    category: "CI/CD & DevOps",
+    items: ["Docker", "GitHub", "Vercel", "Jenkins", "Vite", "Webpack"],
+  },
+  {
+    category: "Shopify",
+    items: ["Hydrogen", "Shopify Extensions", "Liquid Templates"],
+  },
+  {
+    category: "Web3",
+    items: ["Ethers", "MeshJS", "Wagmi", "WalletConnect", "Web3Auth"],
+  },
+  {
+    category: "Backend & Databases",
     items: ["Node", "PHP", "Python", "PostgreSQL", "MySQL", "Prisma"],
+  },
+  {
+    category: "Design System",
+    items: ["Storybook", "Figma"],
+  },
+  {
+    category: "CMS",
+    items: ["Sanity", "Contentful", "Wordpress"],
+  },
+  {
+    category: "Other",
+    items: [
+      "i18next",
+      "LaunchDarkly",
+      "Optimizely",
+      "Socket.io",
+      "ChartJS",
+      "ECharts",
+      "Google Analytics",
+    ],
   },
 ];
 
