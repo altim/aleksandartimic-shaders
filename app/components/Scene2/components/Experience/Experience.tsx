@@ -35,10 +35,13 @@ export default function Experience() {
     }
   }, []);
 
+  const startTimeRef = useRef(performance.now() / 1000);
+
   // Update shader uniforms each frame
-  useFrame((state) => {
+  useFrame(() => {
     if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+      materialRef.current.uniforms.uTime.value =
+        performance.now() / 1000 - startTimeRef.current;
     }
   });
 

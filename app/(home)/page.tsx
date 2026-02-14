@@ -162,7 +162,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <Scene1 />
+            <Scene1 active={currentPage === 0} />
             <ScrollIndicator />
           </div>
 

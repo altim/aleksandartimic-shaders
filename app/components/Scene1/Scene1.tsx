@@ -8,12 +8,13 @@ const Experience = dynamic(() => import("./components/Experience/Experience"), {
   ssr: false,
 });
 
-export default function Scene1() {
+export default function Scene1({ active = true }: { active?: boolean }) {
   return (
     <Canvas
       className={styles.root}
       dpr={[1, 2]}
       gl={{ alpha: true, antialias: false }}
+      frameloop={active ? "always" : "never"}
     >
       <Experience />
     </Canvas>
