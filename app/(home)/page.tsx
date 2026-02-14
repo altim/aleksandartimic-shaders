@@ -30,7 +30,9 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "instant" });
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     useClipPathRef.current =
-      isSafari || "ontouchstart" in window || window.matchMedia("(max-width: 768px)").matches;
+      isSafari ||
+      "ontouchstart" in window ||
+      window.matchMedia("(max-width: 768px)").matches;
     if (useClipPathRef.current && page2Ref.current) {
       page2Ref.current.style.mask = "none";
       page2Ref.current.style.webkitMask = "none";
@@ -71,30 +73,22 @@ export default function Home() {
       const useClipPath = useClipPathRef.current;
       const maxRadius = useClipPath ? 150 : 100;
 
-      // Transition from page 0 to page 1
-      if (page === 0) {
-        const radius = progress * maxRadius;
-        if (useClipPath && page2Ref.current) {
-          page2Ref.current.style.clipPath = `circle(${radius}% at 50% 50%)`;
-        } else if (circleRef.current) {
-          circleRef.current.setAttribute("r", `${radius}%`);
-        }
-        if (page2ContentRef.current) {
-          page2ContentRef.current.style.transform = `translateY(0px)`;
-        }
+      // Reveal circle
+      const radius = Math.min(progress, 1) * maxRadius;
+      if (useClipPath && page2Ref.current) {
+        page2Ref.current.style.clipPath = `circle(${radius}% at 50% 50%)`;
+      } else if (circleRef.current) {
+        circleRef.current.setAttribute("r", `${radius}%`);
       }
 
-      // Scroll the second page content
-      if (page >= 1) {
-        if (useClipPath && page2Ref.current) {
-          page2Ref.current.style.clipPath = `circle(${maxRadius}% at 50% 50%)`;
-        } else if (circleRef.current) {
-          circleRef.current.setAttribute("r", `${maxRadius}%`);
-        }
-        if (page2ContentRef.current) {
-          const innerScroll = scroll - viewportHeight;
-          page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
-        }
+      // Start scrolling page 2
+      const scrollStart =
+        viewportHeight * (window.innerWidth > 768 ? 0.8 : 0.5);
+      if (scroll > scrollStart && page2ContentRef.current) {
+        const innerScroll = scroll - scrollStart;
+        page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
+      } else if (page2ContentRef.current) {
+        page2ContentRef.current.style.transform = `translateY(0px)`;
       }
     };
 
