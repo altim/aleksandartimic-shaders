@@ -20,6 +20,7 @@ export default function Home() {
   const circleRef = useRef<SVGCircleElement>(null);
   const page2ContentRef = useRef<HTMLDivElement>(null);
   const longWrapperRef = useRef<HTMLDivElement>(null);
+  const page2Ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
   const isMobileRef = useRef(false);
@@ -29,8 +30,10 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "instant" });
     isMobileRef.current =
       "ontouchstart" in window || window.matchMedia("(max-width: 768px)").matches;
-    if (isMobileRef.current && circleRef.current) {
-      circleRef.current.removeAttribute("filter");
+    if (isMobileRef.current && page2Ref.current) {
+      page2Ref.current.style.mask = "none";
+      page2Ref.current.style.webkitMask = "none";
+      page2Ref.current.style.clipPath = "circle(0% at 50% 50%)";
     }
   }, []);
 
@@ -49,11 +52,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!lenis || !circleRef.current) return;
+    if (!lenis) return;
 
     const handleScroll = ({ scroll }: { scroll: number }) => {
-      if (!circleRef.current) return;
-
       const viewportHeight = window.innerHeight;
 
       const progress = Math.min(scroll / viewportHeight, 1);
@@ -63,15 +64,17 @@ export default function Home() {
         setCurrentPage(page);
       }
 
-      console.log("progress:", progress);
-      console.log("currentPage:", page);
-
-      const maxRadius = isMobileRef.current ? 150 : 100;
+      const isMobile = isMobileRef.current;
+      const maxRadius = isMobile ? 150 : 100;
 
       // Transition from page 0 to page 1
       if (page === 0) {
         const radius = progress * maxRadius;
-        circleRef.current.setAttribute("r", `${radius}%`);
+        if (isMobile && page2Ref.current) {
+          page2Ref.current.style.clipPath = `circle(${radius}% at 50% 50%)`;
+        } else if (circleRef.current) {
+          circleRef.current.setAttribute("r", `${radius}%`);
+        }
         if (page2ContentRef.current) {
           page2ContentRef.current.style.transform = `translateY(0px)`;
         }
@@ -79,7 +82,11 @@ export default function Home() {
 
       // Scroll the second page content
       if (page >= 1) {
-        circleRef.current.setAttribute("r", `${maxRadius}%`);
+        if (isMobile && page2Ref.current) {
+          page2Ref.current.style.clipPath = `circle(${maxRadius}% at 50% 50%)`;
+        } else if (circleRef.current) {
+          circleRef.current.setAttribute("r", `${maxRadius}%`);
+        }
         if (page2ContentRef.current) {
           const innerScroll = scroll - viewportHeight;
           page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
@@ -160,7 +167,7 @@ export default function Home() {
           </div>
 
           {/* page 2 */}
-          <div className={classNames(styles.page, styles.page2)}>
+          <div ref={page2Ref} className={classNames(styles.page, styles.page2)}>
             <div ref={page2ContentRef} className={styles.page2Content}>
               <div className={styles.page2ContentInner}>
                 <AboutMe />
