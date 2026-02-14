@@ -62,12 +62,18 @@ export default function Home() {
       if (page === 0) {
         const radius = progress * 90;
         circleRef.current.setAttribute("r", `${radius}%`);
+        if (page2ContentRef.current) {
+          page2ContentRef.current.style.transform = `translateY(0px)`;
+        }
       }
 
       // Scroll the second page content
-      if (page >= 1 && page2ContentRef.current) {
-        const innerScroll = scroll - viewportHeight;
-        page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
+      if (page >= 1) {
+        circleRef.current.setAttribute("r", `90%`);
+        if (page2ContentRef.current) {
+          const innerScroll = scroll - viewportHeight;
+          page2ContentRef.current.style.transform = `translateY(-${innerScroll}px)`;
+        }
       }
     };
 
